@@ -105,6 +105,25 @@ level from the street, eye level at the door); 0 returns to the movable builder'
 
 The whole scene draws in about 100 draw calls and 180 000 primitives, shadows included.
 
+Every asset passed the preview. Its measurements (tools/preview.sh; primitives include shadow passes):
+
+| Asset | Size | Triangles | 100 copies: draw calls | 100 copies: primitives |
+| --- | --- | --- | --- | --- |
+| house_a | 12.0 × 10.6 × 16.0 m | 26104 | 230 | 3658018 |
+| tree_round | 4.2 × 5.4 × 4.0 m | 10936 | 17 | 1107610 |
+| tree_conifer | 3.3 × 6.0 × 3.4 m | 10334 | 15 | 1037410 |
+| tree_blossom | 3.5 × 4.5 × 3.8 m | 9114 | 15 | 923410 |
+| bush_round | 1.3 × 0.9 × 1.2 m | 2166 | 14 | 233810 |
+| topiary_cone | 1.0 × 1.7 × 0.9 m | 2460 | 11 | 248410 |
+| flower_bed | 2.1 × 0.5 × 0.8 m | 2592 | 29 | 313610 |
+| hedge | 2.3 × 0.8 × 0.9 m | 2400 | 9 | 240810 |
+| window_box_plants | 1.0 × 0.3 × 0.4 m | 948 | 14 | 113210 |
+| street_straight | 4.0 × 0.2 × 11.5 m | 1968 | 53 | 205930 |
+| street_lamp | 0.4 × 4.2 × 0.4 m | 828 | 11 | 106410 |
+| mailbox | 0.3 × 1.4 × 0.4 m | 506 | 14 | 59410 |
+| bench | 1.6 × 0.9 × 0.5 m | 684 | 11 | 79210 |
+| picket_fence | 2.1 × 0.9 × 0.1 m | 588 | 9 | 88810 |
+
 ## Remaining differences from the reference
 
 - **Plant detail:** the reference's bushes are crisp clusters of distinct round leaf balls; ours are softer fused
