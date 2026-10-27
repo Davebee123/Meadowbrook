@@ -1,7 +1,8 @@
 # Style sheet
 
 The look of Meadowbrook: a detailed, stylised miniature village, chunky and soft like a well-made toy. The target is
-the designer's reference shop render (docs/concept/style-target.png, the corner shop with the green awning). The first
+the designer's reference shop render: the corner shop with the green awning (to be added to the repository as
+docs/concept/style-target.png). The first
 concept images (town-overview, style-sheet, pitch-board) still set the town's layout, density and mood, but not the
 modelling style.
 

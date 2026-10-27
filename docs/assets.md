@@ -13,7 +13,7 @@ What the project had when the pipeline was set up, and what the pipeline changes
 | Lighting | Built in code in scripts/main.gd: procedural sky, filmic tonemap, SSAO, glow, one warm sun at 38° | scenes/lighting/daylight.tscn, a reusable scene: sky fill, SSAO and SSIL, filmic, a sun at 45° with filtered soft shadows. Used by the slice and the preview; the game's main scene still has its own until the slice is approved |
 | Camera | scripts/iso_camera.gd: orthographic, 35.264° tilt, 45° yaw, 48 m tall view by default; scripts/visitor.gd: first person, 1.6 m eye height, 70° field of view | Unchanged; the slice reuses the builder's camera |
 | Models | None. Greybox shapes built in GDScript (scripts/town.gd, make_model) | Blender-authored GLBs in assets/, with .blend sources in blender/src/ |
-| Materials | Flat StandardMaterial3D colours in code | One shared table of named materials (blender/toy.py, MATERIALS), mirrored in docs/style.md |
+| Materials | Flat StandardMaterial3D colours in code | One shared table of named materials for the stylised assets (blender/toy.py, MATERIALS), mirrored in docs/style.md. blender/kit.py keeps the parked café's own table |
 | Input | Registered inside scripts/main.gd | scripts/controls.gd, shared by the game and the slice |
 
 To be replaced once the slice is approved: the greybox house, cottage, family home, townhouse, tree, bush, bench and
@@ -36,8 +36,8 @@ streetlight in scripts/town.gd. The café (assets/buildings/cafe.glb) is parked:
 ## Building and importing
 
 1. Write or change the build script, then run it with Blender's Python:
-   `<blender-venv>/bin/python blender/build_house.py` (or `build_nature.py`, `build_street.py`, optionally with asset
-   names). It writes the GLB and the .blend source, and prints the triangle count.
+   `<blender-venv>/bin/python blender/build_house.py`, or `build_nature.py` and `build_street.py`, which also take
+   asset names to rebuild only those. It writes the GLB and the .blend source, and prints the triangle count.
 2. Import into Godot: `godot --headless --import --path .`. Godot's default import settings are used: levels of
    detail and shadow meshes on.
 3. Preview the asset (below). Iterate until it passes.

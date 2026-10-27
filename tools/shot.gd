@@ -13,7 +13,10 @@ func _initialize() -> void:
 	var frames := int(args[3]) if args.size() > 3 else 12
 	for name in names:
 		if name != "":
-			var cam: Camera3D = scene.find_child(name, true, false)
+			var cam := scene.find_child(name, true, false) as Camera3D
+			if cam == null:
+				push_error("No camera named %s" % name)
+				continue
 			cam.current = true
 		for i in frames:
 			await process_frame

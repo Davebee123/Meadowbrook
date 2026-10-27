@@ -5,7 +5,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 GODOT="${GODOT:-godot}"
-"$GODOT" --headless --import --path . >/dev/null 2>&1
+mkdir -p "$1"
+"$GODOT" --headless --import --path . >"$1/import.log" 2>&1 || { echo "Import failed; see $1/import.log" >&2; exit 1; }
 run=("$GODOT" --path . --rendering-driver vulkan --resolution 1600x900 -s res://tools/preview.gd -- "$@")
 if [ -z "${DISPLAY:-}" ] && command -v xvfb-run >/dev/null; then
 	xvfb-run -a -s "-screen 0 1600x900x24" "${run[@]}"

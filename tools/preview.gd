@@ -122,6 +122,7 @@ func _triangles(node: Node) -> int:
 		var mesh: Mesh = n.mesh
 		for s in mesh.get_surface_count():
 			var arrays := mesh.surface_get_arrays(s)
-			var idx: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
-			total += idx.size() / 3 if idx.size() > 0 else (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size() / 3
+			var idx: Variant = arrays[Mesh.ARRAY_INDEX]
+			var count: int = (idx as PackedInt32Array).size() if idx != null else (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()
+			total += count / 3
 	return total
