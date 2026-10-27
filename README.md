@@ -3,7 +3,8 @@
 A cozy community builder you can step inside. Build a neighbourhood from above, then walk into it in first person.
 Godot 4.3.
 
-The design is in [docs/design.md](docs/design.md); the build order and open questions are in [docs/plan.md](docs/plan.md).
+The design is in [docs/design.md](docs/design.md), the build order and open questions in [docs/plan.md](docs/plan.md),
+and the measured look in [docs/style.md](docs/style.md).
 
 ## Running it
 

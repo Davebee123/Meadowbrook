@@ -34,8 +34,8 @@ These need a decision before the work they block.
 ## Asset sources
 
 Buildings, kit pieces and trees are made in Blender, by Python scripts where the shape is geometric or rule-based.
-CC0 packs fill what scripts do badly: Quaternius and Kenney for people and vehicles, Poly Haven for textures. Pack
-assets are restyled to the style sheet's palette (docs/style.md, not written yet).
+CC0 packs fill what scripts do badly: Quaternius and Kenney for people and vehicles. Textures are baked from Blender
+shaders. Pack assets are restyled to the palette in docs/style.md.
 
 ## Concept art caveats
 
