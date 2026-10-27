@@ -6,7 +6,7 @@
    the result in first person. Save and load. No art. This proves the core promise, building a place and then being
    in it, before any asset work starts.
 2. **One finished café, at both distances.** Model the café in Blender properly and look at it from the builder's
-   camera and from the terrace at eye level. This settles the level-of-detail question below.
+   camera and from the terrace at eye level. This tests it against the eye-level bar (question 1).
 3. **The café moment.** Walk up, order, sit at a terrace table, and the camera settles into a view of the street.
 4. **Pedestrians.** Residents walk from homes along paths to the café and the park.
 5. **The rest of the first playable milestone** (design.md §8): three houses, a townhouse, landscaping, terrain polish.
@@ -15,10 +15,9 @@
 
 These need a decision before the work they block.
 
-1. **What does the miniature look become at eye level?** From above, the model-village charm comes from the high camera,
-   warm light and dense detail. At street level, low-detail textures and toy proportions show. Either first person
-   keeps a stylised miniature feel (shallow depth of field, a slightly toy-like scale) or every asset is made to hold
-   up at both distances, which roughly doubles art cost. *Blocks: step 2.*
+1. **Closed: every asset holds up at eye level.** Walking the town is core (design.md pillar 3, §4 Micro), so each
+   model and texture is judged from the visitor's camera as well as the builder's. Interiors stay out (§9) except the
+   café.
 2. **What does street level give back to the builder?** Sitting in the café is lovely once. To come back, the street
    should reflect design decisions: the café is busy because it's beside the park; a path feels alive because it links
    homes to shops. *Blocks: step 4.*
@@ -31,6 +30,12 @@ These need a decision before the work they block.
    doesn't mention either. Give them a purpose or cut them.
 6. **Why money at all?** Tiny Glade and Townscaper sold on building with no economy. Write down what money adds that a
    milestone-based unlock can't.
+
+## Asset sources
+
+Buildings, kit pieces and trees are made in Blender, by Python scripts where the shape is geometric or rule-based.
+CC0 packs fill what scripts do badly: Quaternius and Kenney for people and vehicles, Poly Haven for textures. Pack
+assets are restyled to the style sheet's palette (docs/style.md, not written yet).
 
 ## Concept art caveats
 
