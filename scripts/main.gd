@@ -6,6 +6,7 @@ const IsoCamera := preload("res://scripts/iso_camera.gd")
 const Visitor := preload("res://scripts/visitor.gd")
 const BuildTool := preload("res://scripts/build_tool.gd")
 const Hud := preload("res://scripts/hud.gd")
+const Controls := preload("res://scripts/controls.gd")
 
 const GRASS := Color("7f9a52")
 const MEADOW := Color("6c8546")
@@ -20,7 +21,7 @@ var _grid: MeshInstance3D
 
 
 func _ready() -> void:
-	_register_inputs()
+	Controls.register()
 	_make_environment()
 	_make_ground()
 
@@ -84,28 +85,6 @@ func _free_spot(pos: Vector3) -> Vector3:
 				if Town.in_bounds(c) and not town.occupied.has(c):
 					return Town.cell_center(c)
 	return Vector3.ZERO
-
-
-func _register_inputs() -> void:
-	var keys := {
-		"move_forward": [KEY_W, KEY_UP],
-		"move_back": [KEY_S, KEY_DOWN],
-		"move_left": [KEY_A, KEY_LEFT],
-		"move_right": [KEY_D, KEY_RIGHT],
-		"hurry": [KEY_SHIFT],
-		"turn_left": [KEY_Q],
-		"turn_right": [KEY_E],
-		"rotate_piece": [KEY_R],
-		"toggle_walk": [KEY_TAB],
-		"quick_save": [KEY_F5],
-	}
-	for action in keys:
-		if not InputMap.has_action(action):
-			InputMap.add_action(action)
-		for key in keys[action]:
-			var e := InputEventKey.new()
-			e.physical_keycode = key
-			InputMap.action_add_event(action, e)
 
 
 func _make_environment() -> void:

@@ -1,0 +1,144 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/slice.gd" id="1_slice"]
+[ext_resource type="PackedScene" path="res://scenes/lighting/daylight.tscn" id="2_light"]
+[ext_resource type="PackedScene" path="res://scenes/lots/house_a_lot.tscn" id="3_lot"]
+[ext_resource type="PackedScene" path="res://assets/street/street_straight.glb" id="4_street"]
+[ext_resource type="PackedScene" path="res://assets/street/street_lamp.glb" id="5_lamp"]
+[ext_resource type="PackedScene" path="res://assets/street/bench.glb" id="6_bench"]
+[ext_resource type="PackedScene" path="res://assets/nature/hedge.glb" id="7_hedge"]
+[ext_resource type="PackedScene" path="res://assets/nature/flower_bed.glb" id="8_bed"]
+[ext_resource type="Script" path="res://scripts/look_at_camera.gd" id="9_look"]
+
+[sub_resource type="StandardMaterial3D" id="lawn"]
+albedo_color = Color(0.431, 0.604, 0.271, 1)
+roughness = 0.95
+
+[sub_resource type="PlaneMesh" id="ground"]
+material = SubResource("lawn")
+size = Vector2(240, 240)
+
+[node name="Slice" type="Node3D"]
+script = ExtResource("1_slice")
+
+[node name="Daylight" parent="." instance=ExtResource("2_light")]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("ground")
+
+[node name="HouseALot" parent="." instance=ExtResource("3_lot")]
+
+[node name="Street" type="Node3D" parent="."]
+position = Vector3(0, 0, 14)
+
+[node name="S0" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(-14, 0, 0)
+
+[node name="S1" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(-10, 0, 0)
+
+[node name="S2" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(-6, 0, 0)
+
+[node name="S3" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(-2, 0, 0)
+
+[node name="S4" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(2, 0, 0)
+
+[node name="S5" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(6, 0, 0)
+
+[node name="S6" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(10, 0, 0)
+
+[node name="S7" parent="Street" instance=ExtResource("4_street")]
+position = Vector3(14, 0, 0)
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="LampWest" parent="Props" instance=ExtResource("5_lamp")]
+position = Vector3(-7, 0.14, 9.4)
+
+[node name="LampEast" parent="Props" instance=ExtResource("5_lamp")]
+position = Vector3(9, 0.14, 9.4)
+
+[node name="LampFar" parent="Props" instance=ExtResource("5_lamp")]
+position = Vector3(1, 0.14, 18.6)
+
+[node name="Bench" parent="Props" instance=ExtResource("6_bench")]
+position = Vector3(5.5, 0.14, 9.3)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="BedFar" parent="Props" instance=ExtResource("8_bed")]
+position = Vector3(-4, 0, 21.2)
+
+[node name="Hedge0" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-13, 0, 22.3)
+
+[node name="Hedge1" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-11, 0, 22.3)
+
+[node name="Hedge2" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-9, 0, 22.3)
+
+[node name="Hedge3" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-7, 0, 22.3)
+
+[node name="Hedge4" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-5, 0, 22.3)
+
+[node name="Hedge5" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-3, 0, 22.3)
+
+[node name="Hedge6" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(-1, 0, 22.3)
+
+[node name="Hedge7" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(1, 0, 22.3)
+
+[node name="Hedge8" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(3, 0, 22.3)
+
+[node name="Hedge9" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(5, 0, 22.3)
+
+[node name="Hedge10" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(7, 0, 22.3)
+
+[node name="Hedge11" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(9, 0, 22.3)
+
+[node name="Hedge12" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(11, 0, 22.3)
+
+[node name="Hedge13" parent="Props" instance=ExtResource("7_hedge")]
+position = Vector3(13, 0, 22.3)
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="Builder" type="Camera3D" parent="Cameras"]
+position = Vector3(57.7, 57.7, 63.7)
+rotation_degrees = Vector3(-35.264, 45, 0)
+projection = 1
+size = 48.0
+far = 500.0
+
+[node name="BuilderClose" type="Camera3D" parent="Cameras"]
+position = Vector3(57.7, 59.2, 63.7)
+rotation_degrees = Vector3(-35.264, 45, 0)
+projection = 1
+size = 24.0
+far = 500.0
+
+[node name="EyeStreet" type="Camera3D" parent="Cameras"]
+position = Vector3(1.2, 1.74, 9.6)
+fov = 70.0
+script = ExtResource("9_look")
+target = Vector3(-1.4, 3.4, 2.5)
+
+[node name="EyeDoor" type="Camera3D" parent="Cameras"]
+position = Vector3(-0.4, 1.67, 5.3)
+fov = 70.0
+script = ExtResource("9_look")
+target = Vector3(-1.6, 1.7, 2.5)

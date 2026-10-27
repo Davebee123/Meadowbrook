@@ -5,8 +5,10 @@
 1. **Greybox street (done, first pass).** Place buildings and props on the grid, paint paths, then press Tab and walk
    the result in first person. Save and load. No art. This proves the core promise, building a place and then being
    in it, before any asset work starts.
-2. **One finished café, at both distances.** Model the café in Blender properly and look at it from the builder's
-   camera and from the terrace at eye level. This tests it against the eye-level bar (question 1).
+2. **Vertical slice (waiting for approval).** One finished house lot, three trees, shrubs and flower beds, a street
+   with props, and the shared daylight, all through the asset pipeline (docs/assets.md). The rest of the town waits
+   until the house, foliage, materials and light are approved. The first-pass café is parked: it was built in an
+   earlier, realistic style.
 3. **The café moment.** Walk up, order, sit at a terrace table, and the camera settles into a view of the street.
 4. **Pedestrians.** Residents walk from homes along paths to the café and the park.
 5. **The rest of the first playable milestone** (design.md §8): three houses, a townhouse, landscaping, terrain polish.

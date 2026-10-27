@@ -19,9 +19,10 @@ code map: README.md. Read narrowly: grep, then read only the part you need.
 - Real metres: a tile is 4 m, eye height 1.6 m.
 - Keep README.md in sync with the code, in the same commit. Record closed open questions in docs/plan.md.
 - Before committing, if Godot is available: `godot --headless --path . --quit`, with no script errors.
-- Blender in a cloud session: `python3.13 -m venv <scratchpad>/blender-venv && <venv>/bin/pip install bpy==5.2.3`,
-  run in the background (about 15 min; download.blender.org is blocked, PyPI isn't). Run scripts with the venv's
-  `python`, not `blender`.
+- Assets: follow docs/assets.md (conventions, build, import, preview). Never accept an asset from code running; look
+  at its preview renders. The town waits until the slice is approved.
+- Cloud setup (Blender via PyPI, Godot from GitHub releases, software Vulkan): docs/assets.md, "Running it in a cloud
+  session". Install Blender in the background; it takes about 15 min.
 - Scratch scripts and screenshots go in the session scratchpad, never the repository.
 - No pull requests unless asked. No model names in code, comments, commits or PR text.
 - Scope: design.md §9 stays out until the core building and exploring experiences are proven.

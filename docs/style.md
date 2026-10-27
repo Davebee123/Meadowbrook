@@ -1,150 +1,105 @@
 # Style sheet
 
-The measured look of Meadowbrook, taken from the concept art (docs/concept/) and corrected to real-world sizes. Every
-model and material follows this file; change the file first, then the assets.
+The look of Meadowbrook: a detailed, stylised miniature village, chunky and soft like a well-made toy. The target is
+the designer's reference shop render (docs/concept/style-target.png, the corner shop with the green awning). The first
+concept images (town-overview, style-sheet, pitch-board) still set the town's layout, density and mood, but not the
+modelling style.
 
-**The bar:** a handcrafted model village from the builder's camera that still holds up at 1 m from the visitor's eye.
+Every model and material follows this file; change the file first, then the assets.
 
-## What to keep from the concept art, and what not
+## The look in one paragraph
 
-Keep: warm late-afternoon light, soft shadows, muted earthy colours, bevelled soft-cornered shapes, strong roof
-silhouettes, dense small detail (planters, window boxes, rooftop units), shopfronts with striped awnings and terraces.
-
-Don't copy: the concept art's scale (people, doors and windows disagree from building to building), its signs (the
-lettering is garbled), or its window counts (they change between views of the same building). Use the measurements
-below instead.
+Real-world scale, so the visitor's eye height of 1.6 m feels right, but every detail is thicker and softer than
+reality: trims are chunky bands with rounded edges, frames are thick, bevels are big enough to catch a highlight from
+the builder's camera. Surfaces are plain, clean colours with no grime, no brick-by-brick texture and no noise. Windows
+glow warm with a glimpse of furnished interior. Plants are dense, rounded clusters of small leaf blobs in bright,
+fresh greens, dotted with simple flowers. Light is bright and warm with soft shadows and gentle contact shading.
 
 ## Palette
 
-The six swatches from the style sheet image, sampled exactly. Materials below are built from these.
+sRGB albedo. Materials are flat colours with a roughness value; textures only where a flat colour can't carry the
+surface.
 
-| Name | Hex | Used for |
-| --- | --- | --- |
-| Meadow | `#9fa055` | lit grass, young foliage |
-| Moss | `#727759` | shaded foliage, hedges, sage paint |
-| Lake | `#4c636d` | water, blue-grey paint, shutters |
-| Rosewood | `#895352` → `#b7756a` | brick, terracotta, red awnings |
-| Sand | `#c9a98a` | paving, warm render, wood |
-| Linen | `#dbc7b2` | light render, trim, canvas |
+| Material | Albedo | Roughness | Used for |
+| --- | --- | --- | --- |
+| Stucco | `#ece3d3` | 0.9 | walls |
+| Trim, sand | `#d9c4a3` | 0.8 | belt courses, sills, surrounds, coping, plinths |
+| Trim, tan | `#c4955f` | 0.7 | accent bands, fascias, steps |
+| Frame | `#3b3f45` | 0.5 | window and door frames, lamp, railings |
+| Door, sage | `#6f8f4a` | 0.5 | front doors, awnings, shutters (one accent per building) |
+| Roof, slate | `#646b78` | 0.8 | pitched roofs |
+| Roof, flat | `#d6d1c7` | 0.9 | flat roofs |
+| Interior glow | `#ffc27a` | emissive | lit rooms behind glass |
+| Interior wood | `#c98f55` | 0.7 | floors and furniture seen through windows |
+| Glass | `#6f8796` | 0.05 | window glass (tinted, glossy) |
+| Pavers | `#d9d3c8`, joints `#b8b0a3` | 0.85 | sidewalks, paths, lot edges |
+| Asphalt | `#5b5d60`, lane paint `#efe3bd` | 0.9 | roads |
+| Curb | `#cfc8bc` | 0.85 | curbs |
+| Lawn | `#6e9a45` | 0.95 | grass |
+| Foliage | `#3f7a2c`, `#5e9b3a`, `#86bf4f` | 0.8 | dark, mid and light leaf blobs |
+| Flowers | white `#f6f1e6` with yellow `#e9c24a` centres, pink `#e7a3b6`, lavender `#a58ccf` | 0.7 | flower dots |
+| Bark | `#7a5a40` | 0.9 | trunks |
+| Wood, planters | `#b07a4a` | 0.75 | planters, benches, fences |
+| Metal | `#a9adb0` | 0.45 | rooftop units, vents, mailboxes |
 
-Rules: no pure white (lightest is about `#efe6d6`), no pure black (darkest is about `#2b2a28`). Keep colours earthy:
-HSV saturation at most 0.55 for surfaces (walls, roofs, ground, foliage, wood), at most 0.7 for accents (awnings,
-terracotta, lane paint, flowers, autumn leaves). Only lit windows go above that.
+Rules: no pure white or black. Greens may be fresh and saturated; everything else stays warm and soft.
 
-## Materials
+## Shapes and measurements
 
-Albedo starting values, sRGB. Calibrate them in the side-by-side render (see "Checking an asset"), then update this table.
-
-| Material | Albedo | Notes |
-| --- | --- | --- |
-| Red brick | `#9a5f4a` | running bond, bricks 215 × 65 mm with 10 mm mortar `#c9b9a5` |
-| Cream render | `#e3d6bf` | plaster on houses and café upper storeys |
-| Grey stone | `#9a958c` | plinths, sills, lintels, corner buildings |
-| Painted siding | `#d9c7a3`, `#a7a49c`, `#8e9a7c` | 150 mm boards; cream, grey and sage |
-| Slate roof | `#5e5a60` | 300 × 200 mm tiles |
-| Terracotta roof | `#a8553a` | cottages only |
-| Flat roof | `#7d7570` | membrane with gravel speckle |
-| Window frame, dark | `#2f3a33` | on brick |
-| Window frame, light | `#efe6d4` | on render and siding |
-| Glass | `#2b2f33`, roughness 0.05 | warm interior glow `#ffb35c` behind it at dusk |
-| Awning stripes | `#efe2cc` with `#4a4642`, `#b8463a`, `#c9a24a` or `#3f6b4f` | stripes 300 mm wide; one colour pair per shop |
-| Plaza paving | `#c8ab92` | 400 × 400 mm slabs |
-| Sidewalk | `#b9b2a6` | 1 × 1 m slabs, 150 mm curb `#a9a39a` |
-| Asphalt | `#4a4a4c` | lane paint `#d8b04a`, crossings `#e6dfd2` |
-| Grass | `#7f9a52` | |
-| Foliage | `#6f8a3e`, `#8aa04c` | blossom `#e3a6b8`, autumn `#c98d40` |
-| Wood | `#6e4b32` | furniture, benches, fences, doors |
-| Metal | `#34383a` | lamp posts, café chairs, railings |
-| Canvas | `#ecdcc4` | umbrellas, plain awnings |
-
-**Texel density:** 512 px per metre for anything within 4 m of the ground (ground floors, terraces, props, paving),
-256 px per metre above that. Tiling textures are made from Blender's procedural shaders and baked at that density, so
-their colours start from this table.
-
-## Measurements
-
-All in metres. These matter most at eye level, where a wrong door height reads instantly.
-
-### Buildings
+Metres. Real sizes for anything the visitor touches (doors, steps, furniture); exaggerated thickness for trims.
 
 | Element | Size |
 | --- | --- |
-| Storey, residential | 3.0 floor to floor |
-| Storey, shop ground floor | 4.0 |
-| Ground floor level | 0.15 above the ground outside |
-| Plinth | a band 0.4 high at the foot of the wall, 0.05 proud; it stops at doors |
-| Door, house | 1.0 × 2.1, recessed 0.15, step 0.15 |
-| Door, shop | 1.0 × 2.4, glazed |
-| Window, residential | 0.9 × 1.4, sill at 0.9 above the floor, recessed 0.12 |
-| Window frame | 0.06 wide; glazing bars 0.03 |
-| Sill and lintel | 0.06 proud; sill 0.05 thick, lintel 0.2 |
-| Shopfront glazing | 2.6 high above a 0.5 stall riser |
-| Fascia (sign band) | 0.6 high, above the shopfront |
-| Awning | fixed under the fascia at 3.1, 1.8 deep, falls 20° to a lower edge at 2.5 |
-| Pitched roof | 40° (houses), 50° (cottages), eaves overhang 0.4, verge 0.2 |
-| Flat roof | parapet 0.8, cornice 0.3 high projecting 0.25 |
-| Chimney | 0.6 × 0.9, 1.0 above the ridge |
-| Dormer | 1.2 wide, set 0.6 back from the eaves |
-| Corner bevel | 0.02 on every exposed edge |
+| Bevel, buildings | 0.05, three segments (rounded, catches light) |
+| Bevel, small props | 0.02 |
+| Storey | 3.0 floor to floor |
+| Ground floor level | 0.3 above the ground, reached by one or two steps 0.15 high, 0.35 deep |
+| Door | 1.0 × 2.2, frame 0.1 wide, set back 0.15 |
+| Window | 1.0 × 1.4 (arched head allowed), frame 0.08 wide, glass set back 0.15, sill 0.9 above floor |
+| Window surround | 0.12 wide, 0.04 proud; sill 0.1 high, 0.08 proud |
+| Belt course | 0.25 high, 0.06 proud, between storeys |
+| Plinth | 0.3 high, 0.04 proud |
+| Pitched roof | 40°, eaves overhang 0.35, fascia 0.2 deep, verge 0.25 |
+| Roof shingle course | 0.25 per course, each course 0.04 thick with a rounded lower edge |
+| Flat roof | coping 0.3 wide × 0.25 high, rounded |
+| Chimney | 0.7 × 0.7, cap 0.1 proud |
+| Interior behind glass | a room box at least 0.6 deep, warm lit, with one or two furniture shapes |
 
-### Street and props
+## Plants
 
-| Element | Size |
-| --- | --- |
-| Sidewalk | 2.0 wide |
-| Road, two lanes | 7.0 wide, curbs 0.15 high |
-| Path | 2.0 wide |
-| Street lamp | 4.0 high, lantern 0.35 |
-| Bench | 1.8 × 0.5, seat 0.45 high |
-| Café table | 0.7 across, 0.75 high |
-| Café chair | seat 0.45, back 0.85 |
-| Umbrella | 2.4 across, canopy edge at 2.2 |
-| Planter | 1.2 × 0.5 × 0.5 |
-| Street tree | 6–9 high, canopy 4–6 across |
-| Person | 1.6–1.85 |
+Plants are built from clusters of small rounded leaf blobs, not single leaves and not one smooth ball.
 
-### Lots
-
-A building is placed with its lot: yard, front path, hedges and planters. Lot sizes in 4 m tiles, width (along the
-street) × depth, replacing the greybox footprints in scripts/town.gd once the models land. Building sizes are in
-metres, also width × depth.
-
-| Lot | Tiles | Building |
-| --- | --- | --- |
-| Cottage | 3 × 3 | 7 × 7, one storey plus attic |
-| House | 3 × 4 | 8 × 9, two storeys plus attic |
-| Family home | 4 × 4 | 11 × 9, two storeys, porch |
-| Townhouse row | 4 × 3 | 15 × 9: three units 5 m wide, three storeys, 40° roof with dormers |
-| Café | 3 × 3 | 9 × 7, two storeys, terrace 4 m deep along the front |
-
-The front of every lot faces +Z at rotation 0.
-
-## Detail density
-
-The concept look comes from small detail. Every asset carries its own; players shouldn't have to place it.
-
-- **Shops:** awning, fascia sign, two planters, a menu board; a terrace with two to four tables if the lot has room.
-- **Houses:** a front path, a hedge or fence, one or two shrubs, window boxes on about a third of the windows.
-- **Flat roofs:** one or two rooftop units, a roof hatch.
-- **Pitched roofs:** a chimney, and a dormer on houses deeper than 8 m.
-- **Streets:** a lamp every 16 m, a tree every 8 m, a planter or bench every 12 m in plazas (spacings fit the 4 m grid).
+- **Blob size:** 0.08–0.15 for shrubs, 0.2–0.35 for tree crowns; three greens mixed, darker inside and below.
+- **Shapes:** round bush, cone topiary, flower bed (low mound with dense flowers), hedge, round-crowned tree, conifer,
+  blossom tree.
+- **Flowers:** small five-petal discs, 0.04–0.06 across, in clusters, never spread evenly.
+- **Trees:** 4–7 m, trunk visible below the crown, crown made of 4–7 clustered lobes.
 
 ## Light
 
-Golden hour is the default (time of day is still an open question, docs/plan.md question 5).
+Bright, warm daylight, the reference's soft studio look rather than a sunset.
 
-- **Sun:** about 28° above the horizon, colour `#ffd9a8`, soft shadows.
-- **Sky fill:** cool, about `#9db4c8`, so shadows read blue against the warm sun.
-- **Ambient occlusion:** strong in corners and under awnings.
-- **Builder's camera only:** a slight tilt-shift blur at the top and bottom of the screen.
+- **Sun:** about 45° above the horizon, from the front left, colour `#fff1dc`, soft shadows.
+- **Ambient:** sky fill, slightly cool, strong enough that shadows stay readable and coloured.
+- **Contact shading:** screen-space ambient occlusion, moderate, so every object sits on the ground.
+- **Windows:** interiors glow at all times of day, softly.
+- **Builder's camera only:** later, a light tilt-shift; not part of the vertical slice.
+
+## Budgets
+
+Per asset, for the builder's camera with many instances.
+
+| Asset | Triangles |
+| --- | --- |
+| House with its lot | up to 40 000 |
+| Tree | up to 12 000 (Godot's automatic LODs cut this at builder zoom) |
+| Shrub or flower bed | up to 3 000 |
+| Prop | up to 1 500 |
+| Street module | up to 2 000 |
 
 ## Checking an asset
 
-Before an asset enters the game, render it in Blender:
-
-1. Four turnaround views, 90° apart.
-2. One view from the builder's camera, orthographic and tilted 35°, at gameplay zoom.
-3. Two eye-level views, 1.6 m high: one from 3 m away, one from 1 m away at the door.
-
-Place each render beside the matching crop of the concept art, under the light above. An asset passes when its
-silhouette and colour match the concept, and when the eye-level views have no flat or stretched surfaces.
+Every asset passes the preview in Godot before it enters the library (docs/assets.md, "Previewing an asset"):
+the builder's camera at gameplay zoom, a close builder view, eye level at 3 m and at 1 m, and a block of repeated
+instances for performance. It passes when its silhouette, proportions and colours match this sheet and the reference,
+nothing intersects or floats, and it stays inside its budget.

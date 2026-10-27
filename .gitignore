@@ -8,3 +8,9 @@ export_credentials.cfg
 # Blender backups
 *.blend1
 *.blend2
+
+# Generated
+__pycache__/
+# Godot extracts textures embedded in a GLB next to it on import
+assets/buildings/cafe_*.png
+assets/buildings/cafe_*.png.import

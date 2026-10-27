@@ -53,8 +53,11 @@ def srgb_to_linear(c):
 
 
 class Kit:
-	def __init__(self, cache_dir):
+	def __init__(self, cache_dir, materials=None, bevel=BEVEL, bevel_segments=2):
 		self.cache = cache_dir
+		self.table = materials or MATERIALS
+		self.bevel = bevel
+		self.bevel_segments = bevel_segments
 		os.makedirs(cache_dir, exist_ok=True)
 		self.bm = bmesh.new()
 		self.materials = []
@@ -80,7 +83,7 @@ class Kit:
 	def mat(self, name):
 		if name in self.index:
 			return self.index[name]
-		hexcol, rough, tex, tile, extra = MATERIALS[name]
+		hexcol, rough, tex, tile, extra = self.table[name]
 		m = bpy.data.materials.new(name)
 		m.use_nodes = True
 		nodes = m.node_tree.nodes
@@ -97,6 +100,10 @@ class Kit:
 		if "emit" in extra:
 			bsdf.inputs["Emission Color"].default_value = (*col, 1.0)
 			bsdf.inputs["Emission Strength"].default_value = extra["emit"]
+		if extra.get("vertex_colour"):
+			vc = nodes.new("ShaderNodeVertexColor")
+			vc.layer_name = "Col"
+			links.new(vc.outputs["Color"], bsdf.inputs["Base Color"])
 		if tex is not None:
 			albedo, normal = tex()
 			img = self._image(name, albedo, False)
@@ -131,10 +138,12 @@ class Kit:
 	# --- Primitives ---------------------------------------------------------
 
 	def _merge(self, bm, mat_name, smooth=False):
-		idx = self.mat(mat_name)
+		"""Adds bm to the kit in the current frame. mat_name None keeps the faces' own material indices."""
+		idx = None if mat_name is None else self.mat(mat_name)
 		bmesh.ops.transform(bm, matrix=self.xf, verts=bm.verts)
 		for f in bm.faces:
-			f.material_index = idx
+			if idx is not None:
+				f.material_index = idx
 			f.smooth = smooth
 		me = bpy.data.meshes.new("tmp")
 		bm.to_mesh(me)
@@ -143,18 +152,21 @@ class Kit:
 		bpy.data.meshes.remove(me)
 
 	@staticmethod
-	def _box_bm(x0, x1, y0, y1, z0, z1, bevel):
+	def _box_bm(x0, x1, y0, y1, z0, z1, bevel, segments=2):
 		bm = bmesh.new()
 		bmesh.ops.create_cube(bm, size=1.0)
 		sx, sy, sz = x1 - x0, y1 - y0, z1 - z0
 		bmesh.ops.transform(bm, matrix=Matrix.Diagonal((sx, sy, sz, 1.0)), verts=bm.verts)
 		bmesh.ops.translate(bm, vec=((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2), verts=bm.verts)
 		if bevel > 0 and min(sx, sy, sz) > bevel * 2.5:
-			bmesh.ops.bevel(bm, geom=list(bm.edges), offset=bevel, segments=2, profile=0.5, affect="EDGES")
+			bmesh.ops.bevel(bm, geom=list(bm.edges), offset=bevel, segments=segments, profile=0.5, affect="EDGES")
 		return bm
 
-	def box(self, mat, x0, x1, y0, y1, z0, z1, bevel=BEVEL):
-		self._merge(self._box_bm(x0, x1, y0, y1, z0, z1, bevel), mat)
+	def box(self, mat, x0, x1, y0, y1, z0, z1, bevel=None):
+		"""A box; bevel defaults to the kit's bevel and shrinks to fit thin parts."""
+		if bevel is None:
+			bevel = min(self.bevel, min(x1 - x0, y1 - y0, z1 - z0) * 0.3)
+		self._merge(self._box_bm(x0, x1, y0, y1, z0, z1, bevel, self.bevel_segments), mat)
 
 	def ring(self, mat, x0, x1, y0, y1, z0, z1, width):
 		"""Four boxes framing a rectangle, for cornices, copings and bands."""
@@ -250,8 +262,8 @@ class Kit:
 		boolean.solver = "EXACT"
 		boolean.material_mode = "TRANSFER"
 		bevel = block.modifiers.new("bevel", "BEVEL")
-		bevel.width = BEVEL
-		bevel.segments = 2
+		bevel.width = self.bevel
+		bevel.segments = self.bevel_segments
 		bevel.limit_method = "ANGLE"
 		me = bpy.data.meshes.new_from_object(block.evaluated_get(bpy.context.evaluated_depsgraph_get()))
 		for p in me.polygons:
@@ -429,8 +441,9 @@ class Kit:
 
 	# --- Output -------------------------------------------------------------
 
-	def build_object(self, name):
-		"""Turns the accumulated bmesh into one object with world-scale UVs per material."""
+	def build_object(self, name, weighted_normals=True):
+		"""Turns the accumulated bmesh into one object with world-scale UVs per material.
+		weighted_normals suits hard surfaces; leave it off for organic shapes, which it flattens into facets."""
 		me = bpy.data.meshes.new(name)
 		bmesh.ops.remove_doubles(self.bm, verts=self.bm.verts, dist=0.0001)
 		self.bm.to_mesh(me)
@@ -442,6 +455,8 @@ class Kit:
 		self._project_uvs(me)
 		obj = bpy.data.objects.new(name, me)
 		bpy.context.scene.collection.objects.link(obj)
+		if not weighted_normals:
+			return obj
 		# Weighted normals keep big faces flat and let only the bevels curve; without them a bevelled box shades
 		# like a pillow.
 		wn = obj.modifiers.new("normals", "WEIGHTED_NORMAL")

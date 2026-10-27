@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/lighting/daylight.tscn" id="1_light"]
+
+[sub_resource type="StandardMaterial3D" id="lawn"]
+albedo_color = Color(0.431, 0.604, 0.271, 1)
+roughness = 0.95
+
+[sub_resource type="PlaneMesh" id="ground"]
+material = SubResource("lawn")
+size = Vector2(400, 400)
+
+[sub_resource type="StandardMaterial3D" id="figure_material"]
+albedo_color = Color(0.55, 0.57, 0.62, 1)
+roughness = 0.8
+
+[sub_resource type="CapsuleMesh" id="figure"]
+material = SubResource("figure_material")
+radius = 0.22
+height = 1.75
+
+[node name="Preview" type="Node3D"]
+
+[node name="Daylight" parent="." instance=ExtResource("1_light")]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("ground")
+
+[node name="Figure" type="MeshInstance3D" parent="."]
+mesh = SubResource("figure")
+
+[node name="Camera" type="Camera3D" parent="."]
+current = true
+far = 1000.0
